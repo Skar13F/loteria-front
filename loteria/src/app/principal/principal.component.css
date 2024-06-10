@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  mat-card {
+    width: 400px;
+    text-align: center;
+  }
+  
+  mat-card-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  mat-card-content {
+    font-size: 16px;
+  }
+  
+  button {
+    margin: 0 8px;
+  }
+  /* styles.css or component-specific CSS file */
+.welcome-card {
+    background-color: #f5f5f5; /* Color de fondo gris */
+    padding: 16px;
+  }
+  
+  .welcome-image {
+    width: 100%; /* Ajusta la imagen para que sea del mismo ancho que la tarjeta */
+    margin-bottom: 16px; /* Margen inferior para separar la imagen del contenido */
+  }
+  
