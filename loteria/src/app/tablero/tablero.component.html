@@ -1,43 +1,46 @@
-<div class="container">
-    <mat-card class="current-card">
-      <mat-card-content>Tarjeta Actual</mat-card-content>
-    </mat-card>
-  
-    <div class="carton">
-      <div *ngFor="let tarjeta of tarjetas" class="card-item">
+<mat-card class="global-card">
+  <mat-card-content>
+    <div class="container">
+      <mat-card class="current-card">
+        <mat-card-content>Tarjeta Actual</mat-card-content>
+      </mat-card>
+    
+      <div class="carton">
+        <div *ngFor="let tarjeta of tarjetas" class="card-item">
+          <mat-card>
+            <mat-card-content>{{ tarjeta }}</mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    
+      <div class="user-info">
         <mat-card>
-          <mat-card-content>{{ tarjeta }}</mat-card-content>
+          <mat-card-content>
+            <h2>{{ usuario.nombre }}</h2>
+            <p>Puntuación: {{ usuario.puntuacion }}</p>
+          </mat-card-content>
+        </mat-card>
+    
+        <mat-card>
+          <mat-card-content>
+            <h3>Mejores Puntajes</h3>
+            <table mat-table [dataSource]="mejoresPuntajes" class="mat-elevation-z8">
+              <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let puntaje"> {{ puntaje.nombre }} </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="puntuacion">
+                <th mat-header-cell *matHeaderCellDef> Puntuación </th>
+                <td mat-cell *matCellDef="let puntaje"> {{ puntaje.puntuacion }} </td>
+              </ng-container>
+    
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </mat-card-content>
         </mat-card>
       </div>
     </div>
-  
-    <div class="user-info">
-      <mat-card>
-        <mat-card-content>
-          <h2>{{ usuario.nombre }}</h2>
-          <p>Puntuación: {{ usuario.puntuacion }}</p>
-        </mat-card-content>
-      </mat-card>
-  
-      <mat-card>
-        <mat-card-content>
-          <h3>Mejores Puntajes</h3>
-          <table mat-table [dataSource]="mejoresPuntajes" class="mat-elevation-z8">
-            <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef> Nombre </th>
-              <td mat-cell *matCellDef="let puntaje"> {{ puntaje.nombre }} </td>
-            </ng-container>
-  
-            <ng-container matColumnDef="puntuacion">
-              <th mat-header-cell *matHeaderCellDef> Puntuación </th>
-              <td mat-cell *matCellDef="let puntaje"> {{ puntaje.puntuacion }} </td>
-            </ng-container>
-  
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
-  
+  </mat-card-content>
+</mat-card>

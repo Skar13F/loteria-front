@@ -1,17 +1,16 @@
 
 import { Component, OnInit } from '@angular/core';
-
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-tablero',
   standalone: true,
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+  
+    CommonModule,
     MatCardModule,
     MatTableModule,
    
