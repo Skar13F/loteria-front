@@ -22,8 +22,8 @@
 }
 
 .card-item {
-  width: 100px;
-  height: 150px;
+  width: 150px;
+  height: 200px;
 }
 
 .user-info {
@@ -36,10 +36,18 @@
 
 .global-card {
   margin: 20px auto; /* Margen automático en la parte superior e inferior, y centrado horizontalmente */
-  max-width: 1100px; /* Ancho máximo */
+  max-width: 1200px; /* Ancho máximo */
   height: 900px; 
 }
 
 .mat-card {
   width: 100%;
+}
+.card-image {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+}
+.punt{
+  align:flex-end;
 }
