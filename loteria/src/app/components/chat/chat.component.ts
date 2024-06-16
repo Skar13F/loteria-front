@@ -1,28 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { ChatMessage } from '../../models/chat-message';
+import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+  styleUrl: './chat.component.css',
 })
-export class ChatComponent implements OnInit{
-  constructor(private chatService: ChatService){
-
-  }
+export class ChatComponent implements OnInit {
+  messageInput: string = '';
+  userId: string="";
+  messageList: any[]=[];
+  constructor(private chatService: ChatService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-      this.chatService.joinRoom("ABC");
+    this.userId=this.route.snapshot.params["userId"];
+    this.chatService.joinRoom('ABC');
   }
 
-  sendMessage(){
-    const chatMessage={
-      message:'HOLA',
-      user: '1'
-    }as ChatMessage
-    this.chatService.sendMessage("ABC",chatMessage)
+  sendMessage() {
+    const chatMessage = {
+      message: this.messageInput,
+      user: this.userId,
+    } as ChatMessage;//creamos un objeto de tipo chat
+    this.chatService.sendMessage('ABC', chatMessage);
+    this.messageInput=""; 
   }
 }
