@@ -1,0 +1,17 @@
+<!-- app.component.html -->
+<div class="container">
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-card class="welcome-card">
+      <mat-card-header>
+        <mat-card-title>Bienvenidos a la Lotería</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Seleccione una opción:</p>
+      </mat-card-content>
+      <mat-card-actions fxLayout="column" fxLayoutGap="8px">
+        <button routerLink="/buscar" mat-raised-button color="primary">Buscar Servidor</button>
+        <button routerLink="/crear" mat-raised-button color="accent">Crear Servidor</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
