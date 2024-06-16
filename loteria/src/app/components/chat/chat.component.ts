@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { ChatMessage } from '../../models/chat-message';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms'
 
 @Component({
@@ -16,7 +16,8 @@ export class ChatComponent implements OnInit {
   userId: string="";
   messageList: any[]=[];
   constructor(private chatService: ChatService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,5 +32,7 @@ export class ChatComponent implements OnInit {
     } as ChatMessage;//creamos un objeto de tipo chat
     this.chatService.sendMessage('ABC', chatMessage);
     this.messageInput=""; 
+    this.router.navigate(['/tablero']);
+
   }
 }
