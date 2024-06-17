@@ -7,11 +7,16 @@ import { Room } from '../models/room';
   providedIn: 'root'
 })
 export class RoomService {
-  private urlApi="http://localhost:3000/api/rooms/create";
+  private urlApiCrear="http://localhost:3000/api/rooms/create";
+  private urlApiGet="http://localhost:3000/api/rooms/available";
 
   constructor(private http: HttpClient) { }
 
   createRoom(): Observable<any> {
-    return this.http.post(this.urlApi, {});  // Ajusta según sea necesario
+    return this.http.post(this.urlApiCrear, {});  // Ajusta según sea necesario
+  }
+
+  getRooms(): Observable<any> {
+    return this.http.get(this.urlApiGet, {})
   }
 }

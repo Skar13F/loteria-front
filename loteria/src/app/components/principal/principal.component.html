@@ -8,7 +8,7 @@
         <p>Seleccione una opción:</p>
       </mat-card-content>
       <mat-card-actions fxLayout="column" fxLayoutGap="8px">
-        <button routerLink="/buscar" mat-raised-button color="primary">Buscar Servidor</button>
+        <button mat-raised-button color="primary" (click)="listServers()">Buscar Servidor</button>
         <button mat-raised-button color="accent" (click)="createServer()">Crear Servidor</button>
       </mat-card-actions>
     </mat-card>
