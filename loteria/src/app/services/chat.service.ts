@@ -12,16 +12,14 @@ export class ChatService {
   constructor() { 
     this.initConnectionSocket();
   }
-
+  //hacemos toda la conexión
   initConnectionSocket() {
     const url = '//localhost:3000/loteria-websocket';
     const socket = new SockJS(url);
-    //const socket = new WebSocket('ws://localhost:3000/loteria-websocket/');
-
-    this.stompClient = Stomp.over(socket);  // Use Stomp.Client
+    this.stompClient = Stomp.over(socket);
   }
 
-  joinRoom(roomId: string) {  // Accept roomId as an argument
+  joinRoom(roomId: string) {  // Nos unimos a un grupo, room o servidor
     this.stompClient.connect({}, () => {
       this.stompClient.subscribe(`/topic/${roomId}`, (messages: any) => {
         const messageContent = JSON.parse(messages.body);
