@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="col-sm-6">
+    <div class="card text-center">
+      <div class="card-header">
+        Lotería
+      </div>
+      <div class="card-body">
+        <input id="name" type="text" placeholder="Nombre" class="form-control mb-3 text-center"
+          [(ngModel)]="messageInput">
+
+          <div *ngIf="roomList.length > 0" class="mb-3">
+            <h5>Salas Disponibles:</h5>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let room of roomList">
+                <ng-container *ngIf="room.id === roomData.id; else showId">
+                  Tu sala
+                </ng-container>
+                <ng-template #showId>
+                  {{ room.id }}
+                </ng-template>
+                <button class="btn btn-primary btn-sm ml-2" (click)="conectarJugador(room.id)">Conectar</button>
+              </li>
+            </ul>
+          </div>
+
+
+        <!-- <div class="btn btn-primary send_message" (click)="sendMessage()">Jugar</div> -->
+      </div>
+    </div>
+  </div>
+</div>

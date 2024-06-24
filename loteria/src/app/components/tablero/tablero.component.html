@@ -1,0 +1,56 @@
+<mat-card class="global-card">
+  <mat-card-content>
+    <div class="container">
+      <!-- Sección de la tarjeta actual -->
+      <mat-card class="current-card">
+        <mat-card-content>Tarjeta Actual</mat-card-content>
+      </mat-card>
+
+      <!-- Tablero de lotería -->
+      <div class="carton">
+        <div *ngFor="let tarjeta of tarjetas" class="card-item">
+          <mat-card>
+            <mat-card-content>
+              <img [src]="tarjeta.image" alt="{{ tarjeta.title }}" class="card-image">
+              <p>{{ tarjeta.title }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+      <!-- Información del usuario y mejores puntajes -->
+      <div class="user-info">
+        <mat-card>
+          <mat-card-content>
+            <h2>{{ usuario.nombre }}</h2>
+            <p>Puntuación: {{ usuario.puntuacion }}</p>
+          </mat-card-content>
+        </mat-card>
+        <div class="punt">
+          <mat-card>
+            <mat-card-content>
+              <h3>Mejores Puntajes</h3>
+              <table mat-table [dataSource]="mejoresPuntajes" class="mat-elevation-z8">
+                <!-- Columna de nombres -->
+                <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                  <td mat-cell *matCellDef="let puntaje"> {{ puntaje.nombre }} </td>
+                </ng-container>
+
+                <!-- Columna de puntuaciones -->
+                <ng-container matColumnDef="puntuacion">
+                  <th mat-header-cell *matHeaderCellDef> Puntuación </th>
+                  <td mat-cell *matCellDef="let puntaje"> {{ puntaje.puntuacion }} </td>
+                </ng-container>
+
+                <!-- Filas de la tabla -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,20 +1,18 @@
-import { Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { HomeComponent } from '../loteria/home/home.component';
-import { CreateServerComponent } from '../loteria/create-server/create-server.component';
-import { SearchServerComponent } from '../loteria/search-server/search-server.component';
-import { LotteryGameComponent } from '../loteria/lottery-game/lottery-game.component';
+import { RouterModule, Routes } from '@angular/router';
+import { TableroComponent } from './components/tablero/tablero.component';
+import { PrincipalComponent } from './components/principal/principal.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'create-server', component: CreateServerComponent },
-  { path: 'search-server', component: SearchServerComponent },
-  { path: 'lottery-game', component: LotteryGameComponent }
+    //{path: 'chat/:userId', component: ChatComponent}
+    { path: '', component: PrincipalComponent},//ruta inicial para conectarse
+    { path: 'unirse', component: ChatComponent},
+    { path: 'tablero',component:TableroComponent},
 ];
-
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule { }
+  
