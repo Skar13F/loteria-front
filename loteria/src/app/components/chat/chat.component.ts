@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { ChatMessage } from '../../models/chat-message';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { JugadorService } from '../../services/jugador.service';
   styleUrls: ['./chat.component.css'],
 })
 export class ChatComponent implements OnInit {
+
   roomData: any;
   roomList: any[] = [];
 
@@ -22,6 +23,7 @@ export class ChatComponent implements OnInit {
   userId: string = '';
   messageList: any[] = [];
   jugador: any;
+  //roomId: string='';
 
   constructor(
     private chatService: ChatService,
@@ -38,6 +40,7 @@ export class ChatComponent implements OnInit {
 
     this.route.paramMap.subscribe((params) => {
       this.roomData = history.state.roomData;
+      
     });
 
     this.listServers();
@@ -60,10 +63,9 @@ export class ChatComponent implements OnInit {
       roomId: this.messageInput,
       userId: this.userId,
     } as ChatMessage;
-    
+
     this.chatService.sendMessage('ABC', chatMessage);
     this.messageInput = '';
-    this.router.navigate(['/tablero']);
   }
 
   conectarJugador(roomId: string): void {
@@ -72,9 +74,9 @@ export class ChatComponent implements OnInit {
       nombre: this.messageInput,
       carton: {
         cartasEnCarton: [],
-        matrizMarcado: [[]]
+        matrizMarcado: [[]],
       },
-      ganado: false
+      ganado: false,
     };
 
     this.jugadorService.createJugador(jugador).subscribe(
@@ -87,19 +89,20 @@ export class ChatComponent implements OnInit {
       }
     );
   }
-
+  idJug:string='';
+  idRoom:string='';
   joinRoom(roomId: string, jugador: any): void {
     this.roomService.joinRoom(roomId, jugador).subscribe(
       (response) => {
         console.log(`Jugador unido a la sala ${roomId}:`, response);
-        console.log('Cartas en el carton del jugador:', jugador.carton.cartasEnCarton);
-
-      this.router.navigate(['/tablero']); //navegar solamente al tablero
-      /*this.router.navigate(['/tablero'], {
-        state: {
-          jugador: jugador
-        }
-      });*/
+        console.log(
+          'Cartas en el carton del jugador:',
+          jugador.carton.cartasEnCarton
+        );
+        this.idJug=jugador.idJugador;
+        this.idRoom=roomId;
+        this.router.navigate(['/tablero',this.idRoom,this.idJug]);
+      
       },
       (error) => {
         console.error(`Error al unir el jugador a la sala ${roomId}`, error);
