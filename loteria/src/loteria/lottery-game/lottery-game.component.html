@@ -1,0 +1,10 @@
+<div class="grid-container">
+    <div *ngFor="let row of grid; let rowIndex = index" class="grid-row">
+      <div *ngFor="let cell of row; let colIndex = index" 
+           class="grid-cell" 
+           [class.locked]="grid[rowIndex][colIndex]"
+           (click)="handleClick(rowIndex, colIndex)">
+      </div>
+    </div>
+  </div>
+<p>Preparando game</p>
