@@ -1,11 +1,14 @@
 
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 // Interfaz para representar una carta
 interface Card {
+  id: number;
   title: string;
   image: string;
 }
@@ -37,10 +40,14 @@ interface Puntaje {
   styleUrl: './tablero.component.css'
 })
 export class TableroComponent implements OnInit {
+
+  roomId: string="";
+  jugador: any;
+
   // Arreglo de cartas que se mostrarán en el tablero
   tarjetas: Card[] = [];
 
-  // Arreglo de todas las cartas posibles (51 cartas)
+  /* Arreglo de todas las cartas posibles (51 cartas)
   allCards: Card[] = [
     { title: 'El Gallo', image: '/assets/img/1.jpg' },
     { title: 'El Diablito', image: 'assets/img/2.jpg' },
@@ -93,7 +100,7 @@ export class TableroComponent implements OnInit {
     { title: 'El Pino', image: 'assets/img/49.jpg' },
     { title: 'El Pescado', image: 'assets/img/50.jpg' },
     { title: 'La Palma', image: 'assets/img/51.jpg' }
-  ];
+  ];*/
 
   // Información del usuario
   usuario: Usuario = { nombre: 'Usuario', puntuacion: 0 };
@@ -108,20 +115,37 @@ export class TableroComponent implements OnInit {
   // Columnas que se mostrarán en la tabla de mejores puntajes
   displayedColumns: string[] = ['nombre', 'puntuacion'];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state as { [key: string]: any };
+
+    if (state) {
+      //this.roomId = state['roomId'];
+      this.jugador = state['jugador'];
+      if (this.jugador && this.jugador.carton && this.jugador.carton.cartasEnCarton) {
+        this.tarjetas = this.jugador.carton.cartasEnCarton.map((carta: any) => ({
+          id: carta.idCarta,
+          title: carta.nombre,
+          image: carta.rutaCarta
+        }));
+      }
+    } else {
+      // En caso donde no hay estado de navegación
+      console.error('No se recibieron datos en la navegación');
+    }
     // Generar el tablero de lotería al inicializar el componente
-    this.generateBoard();
+    //this.generateBoard();
   }
 
-  // Generar el tablero barajando y seleccionando 16 cartas
+  /* Generar el tablero barajando y seleccionando 16 cartas
   generateBoard(): void {
     // Barajar las cartas
     const shuffled = this.shuffleArray([...this.allCards]);
     // Seleccionar las primeras 16 cartas
     this.tarjetas = shuffled.slice(0, 16);
-  }
+  }*/
 
   // Método para barajar un arreglo usando el algoritmo de Fisher-Yates
   shuffleArray(array: Card[]): Card[] {

@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Room } from '../models/room';
+import { Jugador } from '../models/jugador';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
-  private urlApiCrear="http://localhost:3000/api/rooms/create";
-  private urlApiGet="http://localhost:3000/api/rooms/available";
+  private urlApiCrear="http://localhost:3000/api/salas/crear";
+  private urlApiGet="http://localhost:3000/api/salas/disponible";
+  private urlApiJoin="http://localhost:3000/api/salas/unirse";
 
   constructor(private http: HttpClient) { }
 
@@ -19,4 +20,10 @@ export class RoomService {
   getRooms(): Observable<any> {
     return this.http.get(this.urlApiGet, {})
   }
+
+  joinRoom(roomId: string, jugador: Jugador): Observable<any> {
+    const url = `${this.urlApiJoin}?salaId=${roomId}`;  // Usa salaId como esperado en el backend
+    return this.http.post<any>(url, jugador);
+  }
+
 }
