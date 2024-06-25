@@ -7,6 +7,7 @@ import { Jugador } from '../../models/jugador';
 import { JugadorService } from '../../services/jugador.service';
 import { ChatService } from '../../services/chat.service';
 import { ChatMessage } from '../../models/chat-message';
+import { RoomService } from '../../services/room.service';
 
 // Interfaz para representar una carta
 interface Card {
@@ -38,7 +39,7 @@ export class TableroComponent implements OnInit {
   roomId: string = '';
   jugadorId: string = '';
   jugador: Jugador | null = null;
-
+  public cartaMostrar: any;
   // Arreglo de cartas que se mostrarán en el tablero
   tarjetas: Card[] = [];
 
@@ -57,6 +58,7 @@ export class TableroComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
+    private roomService: RoomService,
     private router: Router,
     private jugadorService: JugadorService,
     private route: ActivatedRoute
@@ -65,17 +67,16 @@ export class TableroComponent implements OnInit {
   ngOnInit(): void {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { [key: string]: any };
-  
+
     this.route.paramMap.subscribe((paramMap) => {
       const roomId = paramMap.get('roomId');
       const jugadorId = paramMap.get('idJugador');
-  
+
       if (roomId && jugadorId) {
         this.roomId = roomId;
         this.jugadorId = jugadorId;
-  
-        this.obtenerJugador();
 
+        this.obtenerJugador();
       } else {
         console.error('No se recibieron datos del jugador y roomId');
       }
@@ -83,8 +84,9 @@ export class TableroComponent implements OnInit {
 
     //abrimos la conexión websocket
     this.chatService.joinRoom(this.roomId);
+    this.getCarta();
   }
-  
+
   private obtenerJugador(): void {
     this.jugadorService.obtenerJugador(this.roomId, this.jugadorId).subscribe(
       (data) => {
@@ -92,10 +94,20 @@ export class TableroComponent implements OnInit {
         this.usuario.nombre = this.jugador.nombre;
         // Llamar a la función para pintar las cartas después de obtener el jugador
         this.pintarCartas();
-
       },
       (error) => {
         console.error('Error al obtener el jugador:', error);
+      }
+    );
+  }
+  getCarta() {
+    this.roomService.getCarta(this.roomId).subscribe(
+      (response) => {
+        this.cartaMostrar = response;
+        console.log(this.cartaMostrar);
+      },
+      (error) => {
+        console.error('Error al obtener la carta', error);
       }
     );
   }
@@ -106,8 +118,9 @@ export class TableroComponent implements OnInit {
         const card: Card = {
           id: carta.idCarta,
           title: carta.nombre,
-          image: carta.rutaCarta
+          image: carta.rutaCarta,
         };
+        console.log(card);
         this.tarjetas.push(card);
       }
     } else {
@@ -117,13 +130,12 @@ export class TableroComponent implements OnInit {
 
   //metodo para enviar mensajes por el websocket
   sendMessage() {
-    const chatMessage = {
-      roomId: this.roomId,
-      userId: this.jugador?.idJugador,
-    } as ChatMessage;
+    const cardMessage = {
+      id: 0,
+      title: '',
+      image: '',
+    } as Card;
 
-    this.chatService.sendMessage(this.roomId, chatMessage);
-    
+    //this.chatService.sendMessage(this.roomId, cardMessage);
   }
-   
 }
