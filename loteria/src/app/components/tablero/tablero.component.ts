@@ -75,14 +75,14 @@ export class TableroComponent implements OnInit {
         this.jugadorId = jugadorId;
   
         this.obtenerJugador();
-        this.pintarCartas();
+
       } else {
         console.error('No se recibieron datos del jugador y roomId');
       }
     });
 
     //abrimos la conexión websocket
-    this.chatService.joinRoom('ABC');
+    this.chatService.joinRoom(this.roomId);
   }
   
   private obtenerJugador(): void {
@@ -90,6 +90,9 @@ export class TableroComponent implements OnInit {
       (data) => {
         this.jugador = data;
         this.usuario.nombre = this.jugador.nombre;
+        // Llamar a la función para pintar las cartas después de obtener el jugador
+        this.pintarCartas();
+
       },
       (error) => {
         console.error('Error al obtener el jugador:', error);
