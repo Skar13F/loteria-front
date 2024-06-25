@@ -15,4 +15,7 @@ export class JugadorService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Jugador>(this.urlApiCrear, jugador, { headers });
   }
+  obtenerJugador(idSala: string, idJugador: string): Observable<Jugador> {
+    return this.http.get<Jugador>(`${this.urlApiCrear}/${idSala}/${idJugador}`);
+  }
 }
