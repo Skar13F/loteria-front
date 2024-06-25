@@ -1,11 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ChatService } from '../../services/chat.service';
-import { ChatMessage } from '../../models/chat-message';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RoomService } from '../../services/room.service';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JugadorService } from '../../services/jugador.service';
+import { RoomService } from '../../services/room.service';
 
 @Component({
   selector: 'app-chat',
@@ -19,14 +17,13 @@ export class ChatComponent implements OnInit {
   roomData: any;
   roomList: any[] = [];
 
-  messageInput: string = '';
+  jugadorName: string = '';
   userId: string = '';
   messageList: any[] = [];
   jugador: any;
   //roomId: string='';
 
   constructor(
-    private chatService: ChatService,
     private route: ActivatedRoute,
     private router: Router,
     private service: RoomService,
@@ -36,8 +33,6 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.params['userId'];
-    this.chatService.joinRoom('ABC');
-
     this.route.paramMap.subscribe((params) => {
       this.roomData = history.state.roomData;
       
@@ -58,20 +53,12 @@ export class ChatComponent implements OnInit {
     );
   }
 
-  sendMessage() {
-    const chatMessage = {
-      roomId: this.messageInput,
-      userId: this.userId,
-    } as ChatMessage;
-
-    this.chatService.sendMessage('ABC', chatMessage);
-    this.messageInput = '';
-  }
+  
 
   conectarJugador(roomId: string): void {
     const jugador = {
       idJugador: '', // Dejar vacío si el backend lo genera
-      nombre: this.messageInput,
+      nombre: this.jugadorName,
       carton: {
         cartasEnCarton: [],
         matrizMarcado: [[]],
@@ -95,10 +82,7 @@ export class ChatComponent implements OnInit {
     this.roomService.joinRoom(roomId, jugador).subscribe(
       (response) => {
         console.log(`Jugador unido a la sala ${roomId}:`, response);
-        console.log(
-          'Cartas en el carton del jugador:',
-          jugador.carton.cartasEnCarton
-        );
+        
         this.idJug=jugador.idJugador;
         this.idRoom=roomId;
         this.router.navigate(['/tablero',this.idRoom,this.idJug]);
