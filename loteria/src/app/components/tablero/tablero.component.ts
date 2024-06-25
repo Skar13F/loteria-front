@@ -82,7 +82,7 @@ export class TableroComponent implements OnInit {
     });
 
     //abrimos la conexión websocket
-    this.chatService.joinRoom('ABC');
+    this.chatService.joinRoom(this.roomId);
   }
   
   private obtenerJugador(): void {
