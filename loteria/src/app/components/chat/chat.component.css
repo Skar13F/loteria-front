@@ -3,4 +3,18 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    
   }
+/*
+Este metodo se utilizara para poner un  fondo en la pantalla 
+*/
+.fondochat{
+  background-color:rgba(2, 133, 248, 0.24);/* cambiar por la imagen de fondo*/
+
+}
+.card-body{
+  background-color: rgba(2, 133, 248, 0.671);
+}
+.card-header{
+  background-color: rgba(44, 102, 153, 0.671);
+}
