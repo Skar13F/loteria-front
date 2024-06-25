@@ -6,9 +6,9 @@
       </div>
       <div class="card-body">
         <input id="name" type="text" placeholder="Nombre" class="form-control mb-3 text-center"
-          [(ngModel)]="messageInput">
+          [(ngModel)]="messageList">
 
-          <div *ngIf="roomList.length > 0" class="mb-3">
+          <div *ngIf="roomList.length > 0" class="mb-3"><!--LE PUSE MENOS UNO PARA VER QUE REALIZABA-->
             <h5>Salas Disponibles:</h5>
             <ul class="list-group">
               <li class="list-group-item" *ngFor="let room of roomList">
@@ -18,13 +18,16 @@
                 <ng-template #showId>
                   {{ room.id }}
                 </ng-template>
-                <button class="btn btn-primary btn-sm ml-2" (click)="conectarJugador(room.id)">Conectar</button>
+                <button class="btn btn-primary btn-sm ml-2 " [disabled]="messageList.length === 0" (click)="conectarJugador(room.id)">Conectar</button><!-- MIENTRAS EL USUARIO NO INGRESE SU NOMBRE, EL BOTÓN DE CONECTAR 
+                                                                                                                                                           ESTARÁ DESHABILITADO LA VARIABLE messageList ES LA ENCARGADA DE REGISTRAR EL NOMNRE DE LOS JUGADORES -->
               </li>
             </ul>
           </div>
 
-
-        <!-- <div class="btn btn-primary send_message" (click)="sendMessage()">Jugar</div> -->
+          <div *ngIf="roomList.length === 0" class="mb-3">
+            <button class="btn btn-success btn-sm" (click)="crearSala()">Crear Sala</button>
+          </div>
+        <!-- <div class="btn btn-primary send_message " (click)="sendMessage()">Jugar</div> -->
       </div>
     </div>
   </div>

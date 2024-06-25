@@ -36,7 +36,7 @@ export class PrincipalComponent implements OnInit {
     );
   }
   listServers(){
-    this.router.navigate(['/unirse']);
+    this.router.navigate(['/unirse'], { state: { roomData: this.room } });
 
   }
 

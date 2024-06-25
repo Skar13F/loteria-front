@@ -93,4 +93,10 @@ export class ChatComponent implements OnInit {
       }
     );
   }
+//creado por carlos
+  crearSala() {
+    this.router.navigate(['/'])//solo redireje a la pantalla principal
+  }
+
+
 }
