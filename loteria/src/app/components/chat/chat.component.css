@@ -1,3 +1,7 @@
+/*Editado por carlos 24/06/2024
+    se agregaron los metodos para el diseño del componente 
+    
+  */
 .container {
     display: flex;
     justify-content: center;
@@ -13,8 +17,8 @@ Este metodo se utilizara para poner un  fondo en la pantalla
 
 }
 .card-body{
-  background-color: rgba(2, 133, 248, 0.671);
+  background-color: rgba(2, 133, 248, 0.671);/*Este metodo es para el cuerpo del card */
 }
 .card-header{
-  background-color: rgba(44, 102, 153, 0.671);
+  background-color: rgba(44, 102, 153, 0.671);/*este metodo es para la cabezera del card*/
 }
