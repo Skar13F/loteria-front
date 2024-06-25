@@ -4,22 +4,25 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url("/assets/img/1.jpg");
+    width: 100vw; /* Asegura que ocupe todo el ancho de la ventana */
+    background-image: url("/assets/img/fondo4.jpg");
     background-size: cover; /* Para que la imagen cubra todo el fondo */
   }
   
   mat-card {
     width: 400px;
-    height: 300px; /* Altura fija */
+    height: 450px; /* Altura fija */
     text-align: center;
     border-radius: 10px; /* Borde redondeado */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra en los bordes */
     overflow: hidden; /* Evitar que el contenido sobresalga */
+    background-color: rgba(161, 108, 108, 0.8); /* Fondo semitransparente */
   }
   
   mat-card-title {
     font-size: 24px;
     font-weight: bold;
+    color: white;
   }
   
   mat-card-content {
@@ -31,11 +34,21 @@
   }
   
   .welcome-card {
-    background-color: #f5f5f5;
     padding: 16px;
   }
   
   .welcome-image {
     width: 100%;
     margin-bottom: 16px;
+  }
+  
+  /* Específicos para los botones */
+  .mat-primary-button {
+    background-color:grey;
+    color: white;
+  }
+  
+  .mat-accent-button {
+    background-color: #ff4081;
+    color: white;
   }
