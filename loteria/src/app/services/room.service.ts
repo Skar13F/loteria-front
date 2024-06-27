@@ -7,10 +7,10 @@ import { Jugador } from '../models/jugador';
   providedIn: 'root'
 })
 export class RoomService {
-  private urlApiCrear="http://localhost:3000/api/salas/crear";
-  private urlApiGet="http://localhost:3000/api/salas/disponible";
-  private urlApiJoin="http://localhost:3000/api/salas/unirse";
-  private urlApiCarta="http://localhost:3000/api/salas/carta";
+  private urlApiCrear="http://132.18.53.89:3000/api/salas/crear";
+  private urlApiGet="http://132.18.53.89:3000/api/salas/disponible";
+  private urlApiJoin="http://132.18.53.89:3000/api/salas/unirse";
+  private urlApiCarta="http://132.18.53.89:3000/api/salas/carta";
 
 
   constructor(private http: HttpClient) { }
@@ -29,7 +29,7 @@ export class RoomService {
   }
   getCarta(roomId:string): Observable<any>{
     const url = `${this.urlApiCarta}?salaId=${roomId}`;  // Usa salaId como esperado en el backend
-    return this.http.get(url,{}); 
+    return this.http.get(url,{});
   }
 
 }

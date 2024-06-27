@@ -17,7 +17,7 @@ export class ChatService {
 
   //hacemos toda la conexión
   initConnectionSocket() {
-    const url = 'http://localhost:3000/loteria-websocket';
+    const url = 'http://132.18.53.89:3000/loteria-websocket';
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
   }

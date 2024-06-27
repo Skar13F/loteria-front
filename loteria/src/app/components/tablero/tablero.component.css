@@ -41,7 +41,7 @@
 .global-card {
   margin: 20px auto; /* Margen automático en la parte superior e inferior, y centrado horizontalmente */
   max-width: 1200px; /* Ancho máximo */
-  height: 900px; 
+  height: 900px;
 }
 
 .mat-card {
@@ -69,36 +69,14 @@
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #04AA6D;
+  background-color: #d65757;
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
 
 }
-.send_message:not([disabled]):hover {
-  background-color: #0440b7;
-}
+.send_message:not([disabled]) {
+  background-color: #04AA6D;
 
-.send_message:not([disabled]):active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
 }
-@keyframes changeColor {
-  0% {
-    background-color: #0440b7; /* Color inicial al hacer clic */
-  }
-  50% {
-    background-color: #3e8e41; /* Color intermedio, opcional */
-  }
-  100% {
-    background-color: #0440b7; /* Vuelve al color original */
-  }
-}
-.send_message:active {
-  animation-name: changeColor;
-  animation-duration: 4s; /* Duración total de la animación */
-  animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
-}
-
 

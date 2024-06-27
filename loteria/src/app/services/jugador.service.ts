@@ -7,7 +7,7 @@ import { Jugador } from '../models/jugador';
   providedIn: 'root',
 })
 export class JugadorService {
-  private urlApiCrear="http://localhost:3000/api/jugadores";
+  private urlApiCrear="http://132.18.53.89:3000/api/jugadores";
 
   constructor(private http: HttpClient) { }
 
