@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Carta } from '../../models/carta';
 import { Jugador } from '../../models/jugador';
-import { JugadorService } from '../../services/jugador.service';
 import { ChatService } from '../../services/chat.service';
-import { ChatMessage } from '../../models/chat-message';
+import { JugadorService } from '../../services/jugador.service';
 import { RoomService } from '../../services/room.service';
 
 // Interfaz para representar una carta
@@ -55,6 +55,9 @@ export class TableroComponent implements OnInit {
 
   // Columnas que se mostrarán en la tabla de mejores puntajes
   displayedColumns: string[] = ['nombre', 'puntuacion'];
+
+  //isButtonDisabled: boolean = false; // Estado para el botón
+  public buttonDisabled: boolean = false;
 
   constructor(
     private chatService: ChatService,
@@ -133,9 +136,22 @@ export class TableroComponent implements OnInit {
   }
 
   //Método para escuchar las respuestas del servidor
-  listenerMessage(){
+  listenerMessage() {
     this.chatService.getMessageSubject().subscribe((message: any) => {
-      this.cartaMostrar=message
+      this.cartaMostrar = message;
+      this.buttonDisabled = true; // Deshabilitar el botón
+
+      // Habilitar el botón después de 2 segundos
+      setTimeout(() => {
+        this.buttonDisabled = false;
+      }, 2000); // 2 segundos en milisegundos
     });
+  }
+
+  //Operaciones con la tarjeta que se dio click
+  onCartaClick(carta: Carta){
+    if(carta.title==this.cartaMostrar.nombre){
+      this.usuario.puntuacion+=1;//actualizamos el puntaje del jugador
+    }
   }
 }

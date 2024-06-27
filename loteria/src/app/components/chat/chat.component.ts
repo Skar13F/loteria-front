@@ -42,7 +42,6 @@ export class ChatComponent implements OnInit {
     this.service.getRooms().subscribe(
       (response) => {
         this.roomList = response;
-        console.log(this.roomList);
       },
       (error) => {
         console.error('Error al obtener la lista de salas', error);

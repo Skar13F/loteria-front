@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Stomp } from '@stomp/stompjs';
-import SockJS from 'sockjs-client'; // Use default import
-import { ChatMessage } from '../models/chat-message';
 import { BehaviorSubject } from 'rxjs';
+import SockJS from 'sockjs-client'; // Use default import
 import { Carta } from '../models/jugador';
 
 @Injectable({
@@ -28,7 +27,6 @@ export class ChatService {
       this.stompClient.subscribe(`/topic/${roomId}`, (messages: any) => {
         //el mensaje que se recibirá será de tipo carta
         const messageContent = JSON.parse(messages.body);
-        console.log(messageContent);
         const currentMessage=this.messageSubject.getValue();
         this.messageSubject.next(messageContent);
       });
