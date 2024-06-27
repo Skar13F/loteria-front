@@ -3,4 +3,13 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url("/assets/img/oaxaca.jpg");
+    background-size: cover;
+  }
+  .card{
+    background-color:  rgba(161, 108, 108, 0.8);
+  }
+  .list-group-item{
+    
+    border-color:black;
   }
