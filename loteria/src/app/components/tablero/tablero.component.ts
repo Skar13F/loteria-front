@@ -83,8 +83,9 @@ export class TableroComponent implements OnInit {
     });
 
     //abrimos la conexión websocket
-    this.chatService.joinRoom(this.roomId, this.idJugador);
+    this.chatService.joinRoom(this.roomId);
     this.getCarta();
+    this.listenerMessage();
   }
 
   private obtenerJugador(): void {
@@ -128,6 +129,13 @@ export class TableroComponent implements OnInit {
 
   //metodo para enviar mensajes por el websocket
   sendMessage() {
-    this.chatService.sendMessage(this.roomId, this.idJugador);
+    this.chatService.sendMessage(this.roomId);
+  }
+
+  //Método para escuchar las respuestas del servidor
+  listenerMessage(){
+    this.chatService.getMessageSubject().subscribe((message: any) => {
+      this.cartaMostrar=message
+    });
   }
 }
