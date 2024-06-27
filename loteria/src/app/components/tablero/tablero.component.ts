@@ -145,7 +145,7 @@ export class TableroComponent implements OnInit {
       // Habilitar el botón después de 2 segundos
       setTimeout(() => {
         this.buttonDisabled = false;
-      }, 2000); // 2 segundos en milisegundos
+      }, 4000); // 2 segundos en milisegundos
     });
   }
   tarjetasSacadas: string[] = [];
@@ -154,6 +154,9 @@ export class TableroComponent implements OnInit {
     if(carta.title==this.cartaMostrar.nombre && !this.tarjetasSacadas.includes(carta.title)){
       this.usuario.puntuacion+=1;//actualizamos el puntaje del jugador
       this.tarjetasSacadas.push(carta.title);
+      if(this.usuario.puntuacion==16){
+        alert('Felicidades has ganado')
+      }
     }
 
   }

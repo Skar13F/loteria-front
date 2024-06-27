@@ -5,8 +5,9 @@
 }
 
 .current-card {
-  width: 150px;
-  height: 350px;
+  text-align: center;
+  width: 250px;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -16,8 +17,8 @@
 
 .carton {
   display: grid;
-  grid-template-columns: repeat(4, auto);
-  gap: 20px; /* Espacio entre las tarjetas */
+  grid-template-columns: repeat(4, 120px);
+  gap: 25px; /* Espacio entre las tarjetas */
   flex-grow: 1;
 }
 
@@ -54,14 +55,50 @@
 }
 
 .card-current-image {
-  width: 150px;
-  height: 250px;
+  width: 230px;
+  height: 370px;
   object-fit: cover;
 }
 
 .send_message{
-  background-color: aquamarine;
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
   text-align: center;
-  width: 500px;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #04AA6D;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
 
 }
+.send_message:not([disabled]):hover {
+  background-color: #0440b7;
+}
+
+.send_message:not([disabled]):active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+@keyframes changeColor {
+  0% {
+    background-color: #0440b7; /* Color inicial al hacer clic */
+  }
+  50% {
+    background-color: #3e8e41; /* Color intermedio, opcional */
+  }
+  100% {
+    background-color: #0440b7; /* Vuelve al color original */
+  }
+}
+.send_message:active {
+  animation-name: changeColor;
+  animation-duration: 4s; /* Duración total de la animación */
+  animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
+}
+
+
