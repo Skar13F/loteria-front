@@ -90,4 +90,7 @@ export class ChatComponent implements OnInit {
       }
     );
   }
+  gotoHome(){
+    this.router.navigate(['/']);
+  }
 }
