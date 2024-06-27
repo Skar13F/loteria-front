@@ -6,7 +6,7 @@
 
 .current-card {
   width: 150px;
-  height: 200px;
+  height: 350px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -17,7 +17,7 @@
 .carton {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px; /* Espacio entre las tarjetas */
+  gap: 20px; /* Espacio entre las tarjetas */
   flex-grow: 1;
 }
 
@@ -45,6 +45,18 @@
 }
 .card-image {
   width: 100px;
-  height: 150px;
+  height: 160px;
   object-fit: cover;
+}
+
+.card-current-image {
+  width: 150px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.send_message{
+  background-color: aquamarine;
+  text-align: center;
+  width: 500px;
 }

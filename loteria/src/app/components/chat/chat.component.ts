@@ -18,10 +18,8 @@ export class ChatComponent implements OnInit {
   roomList: any[] = [];
 
   jugadorName: string = '';
-  userId: string = '';
   messageList: any[] = [];
   jugador: any;
-  //roomId: string='';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,10 +30,9 @@ export class ChatComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.params['userId'];
+    this.idJug = this.route.snapshot.queryParams['idJugador'];
     this.route.paramMap.subscribe((params) => {
       this.roomData = history.state.roomData;
-      
     });
 
     this.listServers();
@@ -80,12 +77,13 @@ export class ChatComponent implements OnInit {
   idRoom:string='';
   joinRoom(roomId: string, jugador: any): void {
     this.roomService.joinRoom(roomId, jugador).subscribe(
-      (response) => {
-        console.log(`Jugador unido a la sala ${roomId}:`, response);
-        
+      (response) => {      
         this.idJug=jugador.idJugador;
         this.idRoom=roomId;
-        this.router.navigate(['/tablero',this.idRoom,this.idJug]);
+
+        this.router.navigate(['/tablero',this.idRoom], {
+          queryParams: { idJugador: this.idJug}
+        });
       
       },
       (error) => {

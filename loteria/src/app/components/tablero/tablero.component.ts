@@ -7,6 +7,7 @@ import { Jugador } from '../../models/jugador';
 import { JugadorService } from '../../services/jugador.service';
 import { ChatService } from '../../services/chat.service';
 import { ChatMessage } from '../../models/chat-message';
+import { RoomService } from '../../services/room.service';
 
 // Interfaz para representar una carta
 interface Card {
@@ -36,9 +37,9 @@ interface Puntaje {
 })
 export class TableroComponent implements OnInit {
   roomId: string = '';
-  jugadorId: string = '';
+  idJugador: string = '';
   jugador: Jugador | null = null;
-
+  public cartaMostrar: any;
   // Arreglo de cartas que se mostrarán en el tablero
   tarjetas: Card[] = [];
 
@@ -57,25 +58,25 @@ export class TableroComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
+    private roomService: RoomService,
     private router: Router,
     private jugadorService: JugadorService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.idJugador = this.route.snapshot.queryParams['idJugador'];
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { [key: string]: any };
-  
+
     this.route.paramMap.subscribe((paramMap) => {
       const roomId = paramMap.get('roomId');
-      const jugadorId = paramMap.get('idJugador');
-  
-      if (roomId && jugadorId) {
-        this.roomId = roomId;
-        this.jugadorId = jugadorId;
-  
-        this.obtenerJugador();
 
+      if (roomId && this.idJugador) {
+        this.roomId = roomId;
+        this.idJugador = this.idJugador;
+
+        this.obtenerJugador();
       } else {
         console.error('No se recibieron datos del jugador y roomId');
       }
@@ -83,19 +84,30 @@ export class TableroComponent implements OnInit {
 
     //abrimos la conexión websocket
     this.chatService.joinRoom(this.roomId);
+    this.getCarta();
+    this.listenerMessage();
   }
-  
+
   private obtenerJugador(): void {
-    this.jugadorService.obtenerJugador(this.roomId, this.jugadorId).subscribe(
+    this.jugadorService.obtenerJugador(this.roomId, this.idJugador).subscribe(
       (data) => {
         this.jugador = data;
         this.usuario.nombre = this.jugador.nombre;
         // Llamar a la función para pintar las cartas después de obtener el jugador
         this.pintarCartas();
-
       },
       (error) => {
         console.error('Error al obtener el jugador:', error);
+      }
+    );
+  }
+  getCarta() {
+    this.roomService.getCarta(this.roomId).subscribe(
+      (response) => {
+        this.cartaMostrar = response;
+      },
+      (error) => {
+        console.error('Error al obtener la carta', error);
       }
     );
   }
@@ -106,7 +118,7 @@ export class TableroComponent implements OnInit {
         const card: Card = {
           id: carta.idCarta,
           title: carta.nombre,
-          image: carta.rutaCarta
+          image: carta.rutaCarta,
         };
         this.tarjetas.push(card);
       }
@@ -117,13 +129,13 @@ export class TableroComponent implements OnInit {
 
   //metodo para enviar mensajes por el websocket
   sendMessage() {
-    const chatMessage = {
-      roomId: this.roomId,
-      userId: this.jugador?.idJugador,
-    } as ChatMessage;
-
-    this.chatService.sendMessage(this.roomId, chatMessage);
-    
+    this.chatService.sendMessage(this.roomId);
   }
-   
+
+  //Método para escuchar las respuestas del servidor
+  listenerMessage(){
+    this.chatService.getMessageSubject().subscribe((message: any) => {
+      this.cartaMostrar=message
+    });
+  }
 }

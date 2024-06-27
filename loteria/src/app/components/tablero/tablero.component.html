@@ -1,9 +1,18 @@
 <mat-card class="global-card">
   <mat-card-content>
+    <button class="send_message" (click)="sendMessage()">
+      <div class="icon"></div>
+      <span class="text">Sacar carta</span>
+    </button>
+    
     <div class="container">
       <!-- Sección de la tarjeta actual -->
       <mat-card class="current-card">
-        <mat-card-content>Tarjeta Actual</mat-card-content>
+        <mat-card-content>Carta actual
+          <img *ngIf="cartaMostrar" [src]="cartaMostrar.rutaCarta" alt="{{ cartaMostrar.nombre }}"
+            class="card-current-image">
+          <p *ngIf="cartaMostrar">{{ cartaMostrar.nombre }}</p>
+        </mat-card-content>
       </mat-card>
 
       <!-- Tablero de lotería -->
@@ -22,7 +31,7 @@
       <div class="user-info">
         <mat-card>
           <mat-card-content>
-            <h2>{{ usuario.nombre }}</h2>
+            <h2>Usuario: {{ usuario.nombre }}</h2>
             <p>Puntuación: {{ usuario.puntuacion }}</p>
           </mat-card-content>
         </mat-card>

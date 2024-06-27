@@ -13,12 +13,11 @@ import { RoomService } from '../../services/room.service';
 })
 export class PrincipalComponent implements OnInit {
   public room: any;
-  //public rooms: any[]=[];
-
+  
   constructor(private service: RoomService, private router: Router) {}
 
   ngOnInit(): void {
-    // Puedes inicializar cualquier cosa que necesites aquí
+    //inicializar cosas necesarias
   }
 
   createServer() {
@@ -39,19 +38,4 @@ export class PrincipalComponent implements OnInit {
     this.router.navigate(['/unirse']);
 
   }
-
-  /*listServers(){
-    this.service.getRooms().subscribe(
-      (response)=>{
-        this.rooms = response;
-        console.log(this.rooms);
-        //this.router.navigate(['/unirse']);
-        this.router.navigate(['/unirse'], { state: { roomList: this.rooms } });
-
-      },
-      (error) => {
-        console.error('Error al tratar de encontrar las salas', error);
-      }
-    );
-  }*/
 }
