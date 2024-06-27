@@ -46,6 +46,7 @@
 .card-image {
   width: 100px;
   height: 160px;
+
   object-fit: cover;
 }
 
@@ -59,4 +60,5 @@
   background-color: aquamarine;
   text-align: center;
   width: 500px;
+
 }

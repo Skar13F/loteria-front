@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Stomp } from '@stomp/stompjs';
 import { BehaviorSubject } from 'rxjs';
 import SockJS from 'sockjs-client'; // Use default import
+
+import { ChatMessage } from '../models/chat-message';
+import { BehaviorSubject } from 'rxjs';
 import { Carta } from '../models/jugador';
 
 @Injectable({

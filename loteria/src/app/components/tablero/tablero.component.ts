@@ -7,6 +7,7 @@ import { Carta } from '../../models/carta';
 import { Jugador } from '../../models/jugador';
 import { ChatService } from '../../services/chat.service';
 import { JugadorService } from '../../services/jugador.service';
+
 import { RoomService } from '../../services/room.service';
 
 // Interfaz para representar una carta
@@ -153,5 +154,6 @@ export class TableroComponent implements OnInit {
     if(carta.title==this.cartaMostrar.nombre){
       this.usuario.puntuacion+=1;//actualizamos el puntaje del jugador
     }
+
   }
 }
