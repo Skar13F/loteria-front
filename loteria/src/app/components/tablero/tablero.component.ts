@@ -37,7 +37,7 @@ interface Puntaje {
 })
 export class TableroComponent implements OnInit {
   roomId: string = '';
-  jugadorId: string = '';
+  idJugador: string = '';
   jugador: Jugador | null = null;
   public cartaMostrar: any;
   // Arreglo de cartas que se mostrarán en el tablero
@@ -65,16 +65,16 @@ export class TableroComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.idJugador = this.route.snapshot.queryParams['idJugador'];
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { [key: string]: any };
 
     this.route.paramMap.subscribe((paramMap) => {
       const roomId = paramMap.get('roomId');
-      const jugadorId = paramMap.get('idJugador');
 
-      if (roomId && jugadorId) {
+      if (roomId && this.idJugador) {
         this.roomId = roomId;
-        this.jugadorId = jugadorId;
+        this.idJugador = this.idJugador;
 
         this.obtenerJugador();
       } else {
@@ -83,12 +83,12 @@ export class TableroComponent implements OnInit {
     });
 
     //abrimos la conexión websocket
-    this.chatService.joinRoom(this.roomId);
+    this.chatService.joinRoom(this.roomId, this.idJugador);
     this.getCarta();
   }
 
   private obtenerJugador(): void {
-    this.jugadorService.obtenerJugador(this.roomId, this.jugadorId).subscribe(
+    this.jugadorService.obtenerJugador(this.roomId, this.idJugador).subscribe(
       (data) => {
         this.jugador = data;
         this.usuario.nombre = this.jugador.nombre;
@@ -104,7 +104,6 @@ export class TableroComponent implements OnInit {
     this.roomService.getCarta(this.roomId).subscribe(
       (response) => {
         this.cartaMostrar = response;
-        console.log(this.cartaMostrar);
       },
       (error) => {
         console.error('Error al obtener la carta', error);
@@ -120,7 +119,6 @@ export class TableroComponent implements OnInit {
           title: carta.nombre,
           image: carta.rutaCarta,
         };
-        console.log(card);
         this.tarjetas.push(card);
       }
     } else {
@@ -130,12 +128,6 @@ export class TableroComponent implements OnInit {
 
   //metodo para enviar mensajes por el websocket
   sendMessage() {
-    const cardMessage = {
-      id: 0,
-      title: '',
-      image: '',
-    } as Card;
-
-    //this.chatService.sendMessage(this.roomId, cardMessage);
+    this.chatService.sendMessage(this.roomId, this.idJugador);
   }
 }

@@ -7,6 +7,7 @@ export const routes: Routes = [
     //{path: 'chat/:userId', component: ChatComponent}
     { path: '', component: PrincipalComponent},//ruta inicial para conectarse
     { path: 'unirse', component: ChatComponent},
-    { path: 'tablero/:roomId/:idJugador',component:TableroComponent},
+    { path: 'tablero/:roomId',component:TableroComponent},
+
 ];
  

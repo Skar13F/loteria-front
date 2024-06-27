@@ -54,3 +54,9 @@
   height: 250px;
   object-fit: cover;
 }
+
+.send_message{
+  background-color: aquamarine;
+  text-align: center;
+  width: 500px;
+}

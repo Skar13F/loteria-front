@@ -1,10 +1,16 @@
 <mat-card class="global-card">
   <mat-card-content>
+    <button class="send_message" (click)="sendMessage()">
+      <div class="icon"></div>
+      <span class="text">Iniciar Juego</span>
+    </button>
+    
     <div class="container">
       <!-- Sección de la tarjeta actual -->
       <mat-card class="current-card">
         <mat-card-content>Carta actual
-          <img *ngIf="cartaMostrar" [src]="cartaMostrar.rutaCarta" alt="{{ cartaMostrar.nombre }}" class="card-current-image">
+          <img *ngIf="cartaMostrar" [src]="cartaMostrar.rutaCarta" alt="{{ cartaMostrar.nombre }}"
+            class="card-current-image">
           <p *ngIf="cartaMostrar">{{ cartaMostrar.nombre }}</p>
         </mat-card-content>
       </mat-card>

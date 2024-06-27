@@ -4,14 +4,15 @@ import SockJS from 'sockjs-client'; // Use default import
 import { ChatMessage } from '../models/chat-message';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
-
   private stompClient: any;
-  constructor() { 
+
+  constructor() {
     this.initConnectionSocket();
   }
+
   //hacemos toda la conexión
   initConnectionSocket() {
     const url = 'http://localhost:3000/loteria-websocket';
@@ -19,16 +20,45 @@ export class ChatService {
     this.stompClient = Stomp.over(socket);
   }
 
-  joinRoom(roomId: string) {  // Nos unimos a un grupo, room o servidor
+  /*joinRoom(roomId: string) {
+    // Nos unimos a un grupo, room o servidor 
     this.stompClient.connect({}, () => {
       this.stompClient.subscribe(`/topic/${roomId}`, (messages: any) => {
         const messageContent = JSON.parse(messages.body);
         console.log(messageContent);
       });
     });
+  }*/
+
+  /*joinRoom(roomId: string, idJugador: string) {
+    // Nos unimos a un grupo, room o servidor
+    this.stompClient.connect({}, () => {
+      this.stompClient.subscribe(
+        `/topic/${roomId}/${idJugador}`,
+        (messages: any) => {
+          //el mensaje que se recibirá será de tipo carta
+          const messageContent = JSON.parse(messages.body);
+          console.log(messageContent);
+        }
+      );
+    });
   }
 
-  sendMessage(roomId: string, chatMessage: ChatMessage){
-    this.stompClient.send('/app/loteria-websocket/${roomId}', {},JSON.stringify(chatMessage));
+  sendMessage(roomId: string, idJugador: string) {
+    this.stompClient.send(`/app/tablero/${roomId}/${idJugador}`, {});
+  }*/
+  joinRoom(roomId: string, idJugador: string) {
+    // Nos unimos a un grupo, room o servidor
+    this.stompClient.connect({}, () => {
+      this.stompClient.subscribe(`/topic/${roomId}`, (messages: any) => {
+        //el mensaje que se recibirá será de tipo carta
+        const messageContent = JSON.parse(messages.body);
+        console.log(messageContent);
+      });
+    });
+  }
+
+  sendMessage(roomId: string, idJugador: string) {
+    this.stompClient.send(`/app/tablero/${roomId}`, {});
   }
 }
