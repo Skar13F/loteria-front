@@ -7,18 +7,14 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    
+    background-image: url("/assets/img/fondo4.jpg");
   }
 /*
 Este metodo se utilizara para poner un  fondo en la pantalla 
 */
-.fondochat{
-  background-color:rgba(2, 133, 248, 0.24);/* cambiar por la imagen de fondo*/
-
-}
 .card-body{
-  background-color: rgba(2, 133, 248, 0.671);/*Este metodo es para el cuerpo del card */
+  background-color: rgba(161, 108, 108, 0.8);/*Este metodo es para el cuerpo del card */
 }
 .card-header{
-  background-color: rgba(44, 102, 153, 0.671);/*este metodo es para la cabezera del card*/
+  background-color: rgba(161, 108, 108, 0.8);/*este metodo es para la cabezera del card*/
 }
