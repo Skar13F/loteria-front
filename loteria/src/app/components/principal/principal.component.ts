@@ -24,8 +24,6 @@ export class PrincipalComponent implements OnInit {
     this.service.createRoom().subscribe(
       (response) => {
         this.room = response;
-        console.log(this.room);
-        //this.router.navigate(['/unirse']);
         this.router.navigate(['/unirse'], { state: { roomData: this.room } });
 
       },

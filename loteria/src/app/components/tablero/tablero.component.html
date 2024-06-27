@@ -1,6 +1,7 @@
 <mat-card class="global-card">
   <mat-card-content>
-    <button class="send_message" (click)="sendMessage()">
+    <button class="send_message" [disabled]="buttonDisabled" (click)="sendMessage()">
+
       <div class="icon"></div>
       <span class="text">Sacar carta</span>
     </button>
@@ -20,7 +21,7 @@
         <div *ngFor="let tarjeta of tarjetas" class="card-item">
           <mat-card>
             <mat-card-content>
-              <img [src]="tarjeta.image" alt="{{ tarjeta.title }}" class="card-image">
+              <img (click)="onCartaClick(tarjeta)" [src]="tarjeta.image" alt="{{ tarjeta.title }}" class="card-image">
               <p>{{ tarjeta.title }}</p>
             </mat-card-content>
           </mat-card>
