@@ -16,14 +16,13 @@
 
 .carton {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 10px; /* Espacio entre las tarjetas */
   flex-grow: 1;
 }
 
 .card-item {
-  width: 150px;
-  height: 200px;
+  width: 100%; /* Asegura que las tarjetas ocupen el 100% del ancho disponible */
 }
 
 .user-info {
@@ -44,7 +43,8 @@
   width: 100%;
 }
 .card-image {
-  width: 100px;
-  height: 150px;
+  width: 100%;
+  height: auto; /* Mantiene la proporción de la imagen */
+  display: block; /* Evita el espacio en línea inferior de las imágenes */
   object-fit: cover;
 }
