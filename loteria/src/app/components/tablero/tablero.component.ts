@@ -148,11 +148,12 @@ export class TableroComponent implements OnInit {
       }, 2000); // 2 segundos en milisegundos
     });
   }
-
+  tarjetasSacadas: string[] = [];
   //Operaciones con la tarjeta que se dio click
   onCartaClick(carta: Carta){
-    if(carta.title==this.cartaMostrar.nombre){
+    if(carta.title==this.cartaMostrar.nombre && !this.tarjetasSacadas.includes(carta.title)){
       this.usuario.puntuacion+=1;//actualizamos el puntaje del jugador
+      this.tarjetasSacadas.push(carta.title);
     }
 
   }
